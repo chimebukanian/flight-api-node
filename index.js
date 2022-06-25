@@ -9,7 +9,26 @@ const app = express();
 app.use(json());
 
 app.use("/", routes);
-app.get('/')
+
+app.post('/Book-Flight', () => {
+
+})
+
+app.get('/Flights', () => {
+
+})
+
+app.get('/Flights/:id', () => {
+
+})
+
+app.put('/Edit-Flight', () => {
+
+})
+
+app.delete('/Delete-Flight', () => {
+
+})
 
 const port = process.env.PORT || 3000;
 
