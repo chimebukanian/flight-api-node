@@ -23,8 +23,7 @@ app.post("/Book-Flight", (req, res) => {
             return res.status(500)
         }
     })
-     res.status(200).json({message:"new user created"})
-    rer
+    return res.status(200).json({message:"new user created"})
 })
 
 app.get('/Flights', () => {
@@ -35,7 +34,7 @@ app.get('/Flights/:id', () => {
 
 })
 
-app.put('/Edit-Flight', () => {
+app.put('/Edit-Flight/:id', () => {
 
 })
 
