@@ -40,7 +40,7 @@ app.get('/flights', (req, res) => {
     res.send(flights)
 })
 /* Update - Patch method */
-app.patch('/user/update/:title', (req, res) => {
+app.patch('/flight/update/:title', (req, res) => {
     //get the username from url
     const title = req.params.title
     //get the update data
@@ -61,7 +61,7 @@ app.patch('/user/update/:title', (req, res) => {
     res.send({success: true, msg: 'flight data updated successfully'})
 })
 /* Delete - Delete method */
-app.delete('/user/delete/:title', (req, res) => {
+app.delete('/flight/delete/:title', (req, res) => {
     const title = req.params.title
     //get the existing userdata
     const existflight = getflightData()
