@@ -13,24 +13,24 @@ app.use(express.urlencoded())
 
 /* Create - POST method */
 app.post('/flight/add', (req, res) => {
-    //get the existing user data
+    //get the existing flight data
     const existflight = getflightData()
     
-    //get the new user data from post request
+    //get the new flight data from post request
     const flightData = req.body
-    //check if the userData fields are missing
+    //check if the flightdata fields are missing
     if (flightData.title == null || flightData.time == null || flightData.price == null || flightData.date == null) {
         return res.status(401).send({error: true, msg: 'flight data missing'})
     }
     
-    //check if the username exist already
+    //check if the title exist already
     const findExist = existflight.find( flight => flight.title === flightData.title )
     if (findExist) {
         return res.status(409).send({error: true, msg: 'flight already exist'})
     }
-    //append the user data
+    //append the data
     existflight.push(flightData)
-    //save the new user data
+    //save the new data
     saveflightData(existflight);
     res.send({success: true, msg: 'flight data added successfully'})
 })
@@ -41,19 +41,19 @@ app.get('/flights', (req, res) => {
 })
 /* Update - Patch method */
 app.patch('/flight/update/:title', (req, res) => {
-    //get the username from url
+    //get the from url
     const title = req.params.title
     //get the update data
     const flightData = req.body
-    //get the existing user data
-    const existflight = getflightData()
-    //check if the username exist or not       
-    const findExist = existflight.find( flight => flight.title === title )
+    //get the existing data
+    const existflights = getflightData()
+    //check if the title exist or not       
+    const findExist = existflights.find( flight => flight.title === title )
     if (!findExist) {
-        return res.status(409).send({error: true, msg: 'title not exist'})
+        return res.status(409).send({error: true, msg: 'title does not exist'})
     }
-    //filter the userdata
-    const updateflight = existflight.filter( flight => flight.title !== title )
+    //filter the data
+    const updateflight = existflights.filter( flight => flight.title !== title )
     //push the updated data
     updateflight.push(flightData)
     //finally save it
@@ -63,9 +63,9 @@ app.patch('/flight/update/:title', (req, res) => {
 /* Delete - Delete method */
 app.delete('/flight/delete/:title', (req, res) => {
     const title = req.params.title
-    //get the existing userdata
+    //get the existing data
     const existflight = getflightData()
-    //filter the userdata to remove it
+    //filter the data to remove it
     const filterflight = existflight.filter( flight => flight.title !== title )
     if ( existflight.length === filterflight.length ) {
         return res.status(409).send({error: true, msg: 'flight does not exist'})
@@ -76,12 +76,12 @@ app.delete('/flight/delete/:title', (req, res) => {
     
 })
 /* util functions */
-//read the user data from json file
+//read the data from json file
 const saveflightData = (data) => {
     const stringifyData = JSON.stringify(data)
     fs.writeFileSync('flight.json', stringifyData)
 }
-//get the user data from json file
+//get the data from json file
 const getflightData = () => {
     const jsonData = fs.readFileSync('flight.json')
     return JSON.parse(jsonData)    
