@@ -71,7 +71,7 @@ app.delete('/user/delete/:title', (req, res) => {
         return res.status(409).send({error: true, msg: 'flight does not exist'})
     }
     //save the filtered data
-    saveflightData(filterUser)
+    saveflightData(filterflight)
     res.send({success: true, msg: 'flight removed successfully'})
     
 })
